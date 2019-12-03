@@ -2,18 +2,65 @@
 
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script>
-		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
+    	window.addEventListener("load", function(){
+			let searchForm = document.getElementById("searchForm");
+			function setSearchEngine(){
+				let actions = {
+					"google": "https://www.google.com/search",
+					"duckDuckGo": "https://duckduckgo.com/",
+					"bing": "https://www.bing.com/search",
+					"ask": "https://www.ask.com/web"
+				};
+				console.log("setSearchEngine() is being called.")
+				let selectedEngine = document.querySelector("input[name=engine]:checked").value;
+				let searchQuery = document.querySelector("input[name=q]").value;
+				// console.log("selectedEngine:"+selectedEngine);
+				// console.log("searchQuery:"+searchQuery);
+				console.log(actions[selectedEngine])
+				searchForm.setAttribute("action", actions[selectedEngine])
+
+			}
+			function searchInputValidation(){
+				let searchQuery = document.querySelector("input[name=q]").value.trim();
+				if (searchQuery === "") {
+					event.preventDefault();
+				}
+			}
+			searchForm.addEventListener("submit", function(){
+				searchInputValidation();
+				setSearchEngine();
+				// event.preventDefault();
+			});
+    	});
 	</script>
 </head>
 
 <body>
 
 	<form id="searchForm">
-    <!-- TODO: add form elements -->
+		<span id="title">Search</span>
+	<label>
+		<input type="text" name="q" id="searchBar"/>
+		<label class="searchEngine">
+			Google
+			<input type="radio" name="engine" value="google" />
+		</label>
+		<label class="searchEngine">
+			DuckDuckGo
+			<input type="radio" name="engine" value="duckDuckGo" />
+		</label>
+		<label class="searchEngine">
+			Bing
+			<input type="radio" name="engine" value="bing" />
+		</label>
+		<label class="searchEngine">
+			Ask
+			<input type="radio" name="engine" value="ask" />
+		</label>
+		<input type="submit" value="Go" id="searchButton" />
+	</label>
 	</form>
 
 </body>
